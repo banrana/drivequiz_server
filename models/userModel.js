@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../configs/config');
 const crypto = require('crypto');
-const { type } = require('os');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -12,16 +11,8 @@ const userSchema = new mongoose.Schema({
     },
     password: String,
     role: {
-        type: String,
+        type: [String],
         default: ["USER"]
-    },
-    name:{
-        type: String,
-        unique:true
-    },
-    CCCDID:{
-        type: Number,
-        unique:true
     },
     status: {
         type: Boolean,

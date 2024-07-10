@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { validationResult } = require('express-validator');
+const ResHand = require('../helper/ResHandle');
 const authController = require('../controllers/authController');
 const checkAuth = require('../validators/authValidator');
 const protect = require('../middlewares/protect');
@@ -29,8 +30,8 @@ router.get('/register', (req, res) => {
 
 router.post('/register', checkAuth(), async (req, res, next) => {
   var result = validationResult(req);
-  if (result.errors.length > 0) {
-    return ResHand(res, false, result.errors);
+  if (!result.isEmpty()) {
+    return res.status(400).json({ errors: result.array() });
   }
   authController.register(req, res);
 });

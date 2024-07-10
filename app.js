@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+const cors = require('cors');
 
 // Import routes
 var usersRouter = require('./routes/user');
@@ -35,6 +36,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors({ origin: 'http://localhost:5000', credentials: true }));
+
 // Use routes
 app.use('/user', usersRouter);
 app.use('/auth', authRouter);
@@ -57,8 +60,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-const cors = require('cors');
-app.use(cors({ origin: 'http://localhost:5000', credentials: true }));
 
 module.exports = app;
