@@ -36,8 +36,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Use routes
-app.use('/users', usersRouter);
-app.use('/auths', authRouter);
+app.use('/user', usersRouter);
+app.use('/auth', authRouter);
 app.use('/api/quizzes', quizRouter);
 app.use('/api/questions', questionRouter);
 app.use('/api/results', resultRouter);
@@ -57,5 +57,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const cors = require('cors');
+app.use(cors({ origin: 'http://localhost:5000', credentials: true }));
 
 module.exports = app;
