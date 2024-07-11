@@ -1,11 +1,11 @@
-module.exports = function (res,success,data) {
-    if(success){
-        res.status(200).send({
+module.exports = function (res, success, data, statusCode = 200) {
+    if (success) {
+        res.status(statusCode).send({
             success: true,
             data: data
         });
-    }else{
-        res.status(404).send({
+    } else {
+        res.status(statusCode || 400).send({
             success: false,
             data: data
         });

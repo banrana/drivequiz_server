@@ -70,10 +70,10 @@ exports.register = async (req, res) => {
       role: ["USER"]
     });
     await newUser.save();
-    res.status(201).json({ message: "Đăng ký thành công", user: newUser.username });
+    ResHand(res, true, { message: "Đăng ký thành công" }, 201);
   } catch (error) {
     console.error("Lỗi đăng ký:", error);
-    res.status(400).json({ message: "Đăng ký thất bại", error: error.message });
+    ResHand(res, false, { message: "Đăng ký thất bại", error: error.message }, 400);
   }
 };
 
